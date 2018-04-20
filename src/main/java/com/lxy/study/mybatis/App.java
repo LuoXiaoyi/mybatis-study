@@ -37,7 +37,7 @@ public class App {
 		CityMapper cm = ss.getMapper(CityMapper.class);
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("name", "dah");
-		param.put("countryCode", "A");
+		param.put("countryCode", "AFG");
 		log.info(cm.queryCity(param));
 		//log.info(cm.countCityByName("dah"));
 		// System.out.println(cm.queryCityById2(14003));
