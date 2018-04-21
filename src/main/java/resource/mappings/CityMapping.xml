@@ -84,5 +84,9 @@
     from city where id=#{id}
   </select>
 
-
+  <select id="queryCitiesByCountryCode" resultMap="cityMap">
+     select
+    id,name,countryCode,district,role,population
+    from city where countryCode=#{countryCode}
+  </select>
 </mapper>

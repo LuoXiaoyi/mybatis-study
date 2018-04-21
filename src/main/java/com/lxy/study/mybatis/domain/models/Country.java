@@ -1,6 +1,7 @@
 package com.lxy.study.mybatis.domain.models;
 
 import com.sun.org.apache.bcel.internal.classfile.Code;
+import java.util.List;
 import sun.rmi.server.InactiveGroupException;
 
 /**
@@ -31,6 +32,15 @@ public class Country {
   private String headOfState;
   private Integer capital;
   private String code2;
+  private List<City> cities;
+
+  public List<City> getCities() {
+    return cities;
+  }
+
+  public void setCities(List<City> cities) {
+    this.cities = cities;
+  }
 
   public String getCode() {
     return code;

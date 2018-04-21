@@ -6,6 +6,7 @@
 package com.lxy.study.mybatis.domain.daos;
 
 import com.lxy.study.mybatis.domain.models.City2;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,6 +24,8 @@ import com.lxy.study.mybatis.util.MyParam;
  */
 
 public interface CityMapper {
+  public List<City> queryCitiesByCountryCode(String countryCode);
+
   public City2 queryCityWithCountryInfo(int id);
 
   public City queryCityByName(String name);

@@ -12,6 +12,7 @@
     <result column="continent" property="continent"
       javaType="com.lxy.study.mybatis.domain.models.Continent"
       typeHandler="com.lxy.study.mybatis.typehandlers.ContinentEnumHandler"/>
+    <collection property="cities" column="code" select="com.lxy.study.mybatis.domain.daos.CityMapper.queryCitiesByCountryCode"/>
   </resultMap>
 
   <sql id="countryColumns">
