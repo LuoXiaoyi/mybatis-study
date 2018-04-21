@@ -1,69 +1,70 @@
-<?xml version="1.0" encoding="UTF-8" ?>  
-<!DOCTYPE configuration  
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 定义属性 -->
-	<properties resource="jdbc.properties">
-	</properties>
-	<!-- 定义Mybatis的运行时行为 -->
-	<settings>
-		<!-- 自动映射配置：
-			NONE：取消自动映射
-			PARTIAL：对对象本身进行映射，不对嵌套进行映射，默认值
-			FULL：对嵌套进行映射
-		 -->
-		<setting name="autoMappingBehavior" value="PARTIAL"/>
-	</settings>
-	
-	<!-- 别名定义，两种方式：package：通过注解来定义别名， -->
-	<typeAliases>
-		<!-- 直接定义别名 -->
-		<typeAlias type="com.lxy.study.mybatis.domain.models.City"
-			alias="city" />
-		<!-- 定义包的根路径，通过直接来扫描@Alias注解来实现别名的注入，当然，即使不配置注解 同样会加载有关的类，只是别名会把类名的首字母小写作为别名 -->
-		<package name="com.lxy.study.mybatis" />
-	</typeAliases>
-	<!-- TypeHandlers configuration，配置之后，就可以在属性里面进行使用了，通过配置typeHandler属性 -->
-	<typeHandlers>
-		<typeHandler handler="com.lxy.study.mybatis.typehandlers.MyTypeHandler"
-			javaType="com.lxy.study.mybatis.domain.models.Role" />
-		<!-- 同样可以通过配置包路径，扫描指定包下面的所有handler类 -->
-		<package name="com.lxy.study.mybatis.typehandlers" />
-	</typeHandlers>
-	<objectFactory type="com.lxy.study.mybatis.objectfactory.MyObjectFactory">
-		<property name="name" value="myObjectFactory"></property>
-	</objectFactory>
+  <!-- 定义属性 -->
+  <properties resource="jdbc.properties">
+  </properties>
+  <!-- 定义Mybatis的运行时行为 -->
+  <settings>
+    <!-- 自动映射配置：
+      NONE：取消自动映射
+      PARTIAL：对对象本身进行映射，不对嵌套进行映射，默认值
+      FULL：对嵌套进行映射
+     -->
+    <setting name="autoMappingBehavior" value="PARTIAL"/>
+  </settings>
 
-	<environments default="development">
-		<environment id="development">
-			<!-- JDBC/MANAGED -->
-			<transactionManager type="JDBC"></transactionManager>
-			<!-- 配置datasource，也可以自定义数据库 -->
-			<dataSource type="POOLED">
-				<property name="driver" value="${jdbc.mysql.driverClassName}" />
-				<property name="url" value="${jdbc.mysql.url}" />
-				<property name="username" value="${jdbc.mysql.username}" />
-				<property name="password" value="${jdbc.mysql.password}" />
-			</dataSource>
-		</environment>
-	</environments>
-	<!-- 数据库厂商标识 -->
-	<databaseIdProvider type="DB_VENDOR">
-		<property name="MySQL" value="mysql" />
-		<property name="Oracle" value="oracle" />
-		<property name="DB2" value="db2" />
-		<property name="SQL Server" value="sqlserver" />
-	</databaseIdProvider>
-	<!-- mapper映射器的引入包含多种方法
-	 1. 通过mapper的resource属性导入xml的mapping配置文件 (推荐使用)
-	 2. 通过mapper的class属性导入java类型的Interface接口 
-	 3. 通过mapper的url属性导入xml的mapping配置文件
-	 4. 通过package标签，配置扫描的包路径，使mybatis自动装载包下面的所有mapper对象(@Mapper标注的)
-	 需要注意的是，这里的方式可以混合使用，但是，同一个mapper不能在多种不同的方式中被包含，不然会有异常抛出 -->
-	<mappers>
-		<mapper resource="resource/mappings/CityMapping.xml" />
-		<!--mapper class="com.lxy.study.mybatis.domain.daos.CityMapper" /-->
-		<!--package name="com.lxy.study.mybatis.domain.daos" /-->
-	</mappers>
+  <!-- 别名定义，两种方式：package：通过注解来定义别名， -->
+  <typeAliases>
+    <!-- 直接定义别名 -->
+    <typeAlias type="com.lxy.study.mybatis.domain.models.City"
+      alias="city"/>
+    <!-- 定义包的根路径，通过直接来扫描@Alias注解来实现别名的注入，当然，即使不配置注解 同样会加载有关的类，只是别名会把类名的首字母小写作为别名 -->
+    <package name="com.lxy.study.mybatis"/>
+  </typeAliases>
+  <!-- TypeHandlers configuration，配置之后，就可以在属性里面进行使用了，通过配置typeHandler属性 -->
+  <typeHandlers>
+    <typeHandler handler="com.lxy.study.mybatis.typehandlers.MyTypeHandler"
+      javaType="com.lxy.study.mybatis.domain.models.Role"/>
+    <!-- 同样可以通过配置包路径，扫描指定包下面的所有handler类 -->
+    <package name="com.lxy.study.mybatis.typehandlers"/>
+  </typeHandlers>
+  <objectFactory type="com.lxy.study.mybatis.objectfactory.MyObjectFactory">
+    <property name="name" value="myObjectFactory"></property>
+  </objectFactory>
+
+  <environments default="development">
+    <environment id="development">
+      <!-- JDBC/MANAGED -->
+      <transactionManager type="JDBC"></transactionManager>
+      <!-- 配置datasource，也可以自定义数据库 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${jdbc.mysql.driverClassName}"/>
+        <property name="url" value="${jdbc.mysql.url}"/>
+        <property name="username" value="${jdbc.mysql.username}"/>
+        <property name="password" value="${jdbc.mysql.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- 数据库厂商标识 -->
+  <databaseIdProvider type="DB_VENDOR">
+    <property name="MySQL" value="mysql"/>
+    <property name="Oracle" value="oracle"/>
+    <property name="DB2" value="db2"/>
+    <property name="SQL Server" value="sqlserver"/>
+  </databaseIdProvider>
+  <!-- mapper映射器的引入包含多种方法
+   1. 通过mapper的resource属性导入xml的mapping配置文件 (推荐使用)
+   2. 通过mapper的class属性导入java类型的Interface接口
+   3. 通过mapper的url属性导入xml的mapping配置文件
+   4. 通过package标签，配置扫描的包路径，使mybatis自动装载包下面的所有mapper对象(@Mapper标注的)
+   需要注意的是，这里的方式可以混合使用，但是，同一个mapper不能在多种不同的方式中被包含，不然会有异常抛出 -->
+  <mappers>
+    <mapper resource="resource/mappings/CityMapping.xml"/>
+    <mapper resource="resource/mappings/CountryMapping.xml"/>
+    <!--mapper class="com.lxy.study.mybatis.domain.daos.CityMapper" /-->
+    <!--package name="com.lxy.study.mybatis.domain.daos" /-->
+  </mappers>
 </configuration>

@@ -1,6 +1,9 @@
 package com.lxy.study.mybatis;
 
+import com.lxy.study.mybatis.domain.daos.CountryMapper;
+import com.lxy.study.mybatis.domain.models.Country;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,7 +33,16 @@ public class App {
     //test3();
     //testUpdate();
     //testDelete();
-    testSelect();
+    //testSelect();
+    testSelectList();
+  }
+
+  private static void testSelectList(){
+    SqlSession ss = SqlSessionUtil.openSession();
+    CountryMapper cm = ss.getMapper(CountryMapper.class);
+    List<Country> cts = cm.queryAllCountries();
+    System.out.println("cts: " + cts);
+    ss.commit();
   }
 
   private static void testSelect(){
