@@ -29,6 +29,7 @@ import com.lxy.study.mybatis.util.MyParam;
  */
 
 public interface CityMapper {
+  public City queryCityByName(String name);
 
 	public int deleteCityById(int id);
 

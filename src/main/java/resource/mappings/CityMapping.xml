@@ -4,37 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxy.study.mybatis.domain.daos.CityMapper">
 
-	<!-- result map configuration-->
+  <!-- result map configuration-->
   <resultMap id="cityMap" type="com.lxy.study.mybatis.domain.models.City">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="role" property="role"/>
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="role" property="role"/>
   </resultMap>
 
   <!-- databaseId，指定sql运行在哪种数据库上，如果databaseId不为空，则必须在每条sql上进行指定 -->
   <select id="queryCityById" parameterType="int" databaseId="mysql"
     resultMap="cityMap">
-		<!--resultType="com.lxy.study.mybatis.domain.models.City">-->
-		select * from city where id = #{id}
-	</select>
+    <!--resultType="com.lxy.study.mybatis.domain.models.City">-->
+    select * from city where id = #{id}
+  </select>
 
   <select id="queryCityByNameAndCountryCode"
     resultType="com.lxy.study.mybatis.domain.models.City">
 		select * from city where name = #{name} and countryCode = #{countryCode}
 	</select>
 
-	<!-- 采用 useGeneratedKeys="true" keyProperty="id" 配置，可以使mybatis自动回填City对象的主键值 -->
+  <!-- 采用 useGeneratedKeys="true" keyProperty="id" 配置，可以使mybatis自动回填City对象的主键值 -->
   <insert id="saveCity" parameterType="com.lxy.study.mybatis.domain.models.City"
-		useGeneratedKeys="true" keyProperty="id">
+    useGeneratedKeys="true" keyProperty="id">
 
-		<!-- 采用自定义规则来生成主键 -->
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
-			select if(max(id) is null,1,max(id) + 2) as newId from city
-		</selectKey>
+    <!-- 采用自定义规则来生成主键 -->
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+      select if(max(id) is null,1,max(id) + 2) as newId from city
+    </selectKey>
 
-		insert into city(id,name,countryCode,district,population,role)
-		values (#{id},#{name},#{countryCode},#{district},#{population},#{role})
-	</insert>
+    insert into city(id,name,countryCode,district,population,role)
+    values (#{id},#{name},#{countryCode},#{district},#{population},#{role})
+  </insert>
 
   <select id="countCityByName" parameterType="java.lang.String"
     resultType="int">
@@ -48,12 +48,26 @@
 			and countryCode like concat('%',#{countryCode},'%');
 	</select>
 
-	<update id="updateCity" parameterType="com.lxy.study.mybatis.domain.models.City">
+  <update id="updateCity" parameterType="com.lxy.study.mybatis.domain.models.City">
 		update city set name =#{name}, district = #{district}
 		where id = #{id}
 	</update>
 
-	<delete id="deleteCityById" parameterType="java.lang.Integer">
+  <delete id="deleteCityById" parameterType="java.lang.Integer">
 		delete from city where id = #{id}
 	</delete>
+
+  <!-- This can be used repeatedly -->
+  <sql id="cityColumns">
+		id,name,countryCode,district,role,population
+	</sql>
+
+  <select id="queryCityByName" parameterType="String"
+    resultType="com.lxy.study.mybatis.domain.models.City">
+    select
+    <include refid="cityColumns"/>
+    from city where name = #{name}
+  </select>
+
+
 </mapper>

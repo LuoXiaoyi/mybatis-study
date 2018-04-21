@@ -28,8 +28,17 @@ public class App {
     //test1();
     //test2();
     //test3();
-    testUpdate();
-    testDelete();
+    //testUpdate();
+    //testDelete();
+    testSelect();
+  }
+
+  private static void testSelect(){
+    SqlSession ss = SqlSessionUtil.openSession();
+    CityMapper cm = ss.getMapper(CityMapper.class);
+    City c = cm.queryCityByName("Kabul");
+    System.out.println("city： " + c);
+    ss.commit();
   }
 
   private static void testDelete() {
