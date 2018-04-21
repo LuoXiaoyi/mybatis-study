@@ -24,4 +24,6 @@ import org.apache.ibatis.annotations.Select;
 public interface CountryMapper {
 
   List<Country> queryAllCountries();
+
+  Country queryCountryByCode(String code);
 }

@@ -24,4 +24,11 @@
     <include refid="countryColumns"/>
     from country
   </select>
+
+  <select id="queryCountryByCode" resultMap="countryMap">
+    select
+    <include refid="countryColumns"/>
+    from country
+    where code = #{code}
+  </select>
 </mapper>

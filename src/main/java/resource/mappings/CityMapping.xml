@@ -11,6 +11,14 @@
     <result column="role" property="role"/>
   </resultMap>
 
+  <resultMap id="city2Map" type="com.lxy.study.mybatis.domain.models.City2">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="role" property="role"/>
+    <association property="country" column="countryCode"
+      select="com.lxy.study.mybatis.domain.daos.CountryMapper.queryCountryByCode"/>
+  </resultMap>
+
   <!-- databaseId，指定sql运行在哪种数据库上，如果databaseId不为空，则必须在每条sql上进行指定 -->
   <select id="queryCityById" parameterType="int" databaseId="mysql"
     resultMap="cityMap">
@@ -67,6 +75,13 @@
     select
     <include refid="cityColumns"/>
     from city where name = #{name}
+  </select>
+
+  <select id="queryCityWithCountryInfo" parameterType="int"
+    resultMap="city2Map">
+    select
+    id,name,countryCode,district,role,population
+    from city where id=#{id}
   </select>
 
 
