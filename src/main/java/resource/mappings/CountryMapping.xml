@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxy.study.mybatis.domain.daos.CountryMapper">
+
+  <resultMap id="countryMap" type="com.lxy.study.mybatis.domain.models.Country">
+    <constructor>
+      <arg column="code" javaType="string"/>
+      <arg column="name" javaType="string"/>
+    </constructor>
+    <result column="continent" property="continent"
+      javaType="com.lxy.study.mybatis.domain.models.Continent"
+      typeHandler="com.lxy.study.mybatis.typehandlers.ContinentEnumHandler"/>
+  </resultMap>
+
+  <sql id="countryColumns">
+    Code,Name,Continent,Region,SurfaceArea,IndepYear,Population,LifeExpectancy,GNP,GNPOld,
+    LocalName,GovernmentForm,HeadOfState,Capital,Code2
+  </sql>
+
+  <select id="queryAllCountries" resultMap="countryMap">
+    select
+    <include refid="countryColumns"/>
+    from country
+  </select>
+</mapper>
