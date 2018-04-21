@@ -48,4 +48,12 @@
 			and countryCode like concat('%',#{countryCode},'%');
 	</select>
 
+	<update id="updateCity" parameterType="com.lxy.study.mybatis.domain.models.City">
+		update city set name =#{name}, district = #{district}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteCityById" parameterType="java.lang.Integer">
+		delete from city where id = #{id}
+	</delete>
 </mapper>

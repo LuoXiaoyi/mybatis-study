@@ -27,7 +27,29 @@ public class App {
     System.out.println("databaseId --> " + databaseId);
     //test1();
     //test2();
-    test3();
+    //test3();
+    testUpdate();
+    testDelete();
+  }
+
+  private static void testDelete() {
+    SqlSession ss = SqlSessionUtil.openSession();
+    CityMapper cm = ss.getMapper(CityMapper.class);
+    int rel = cm.deleteCityById(14007);
+    System.out.println("rel: " + rel);
+    ss.commit();
+  }
+
+  private static void testUpdate() {
+    SqlSession ss = SqlSessionUtil.openSession();
+    CityMapper cm = ss.getMapper(CityMapper.class);
+    City c = new City();
+    c.setId(14007);
+    c.setName("myCity");
+    c.setDistrict("myDistrict");
+    int rel = cm.updateCity(c);
+    System.out.println("rel: " + rel);
+    ss.commit();
   }
 
   private static void test3() {
