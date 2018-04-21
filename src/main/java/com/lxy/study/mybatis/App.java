@@ -44,7 +44,7 @@ public class App {
     SqlSession ss = SqlSessionUtil.openSession();
     CountryMapper cm = ss.getMapper(CountryMapper.class);
     Country c = cm.queryCountryByCode("ABW");
-    System.out.println("Country: " + c);
+    // System.out.println("Country: " + c);
     ss.close();
   }
 

@@ -14,6 +14,11 @@
       FULL：对嵌套进行映射
      -->
     <setting name="autoMappingBehavior" value="PARTIAL"/>
+    <!-- 开启延迟加载，默认是false -->
+    <setting name="lazyLoadingEnabled" value="true"/>
+    <!-- 默认的延迟加载是：层级延迟加载，如果开启aggressiveLazyLoading，
+    则会完全使用延迟加载，需要什么加载什么，默认为false -->
+    <setting name="aggressiveLazyLoading" value="true"/>
   </settings>
 
   <!-- 别名定义，两种方式：package：通过注解来定义别名， -->
