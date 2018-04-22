@@ -3,6 +3,7 @@ package com.lxy.study.mybatis;
 import com.lxy.study.mybatis.domain.daos.CountryMapper;
 import com.lxy.study.mybatis.domain.models.City2;
 import com.lxy.study.mybatis.domain.models.Country;
+import com.lxy.study.mybatis.util.PageInfo;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,21 @@ public class App {
     //testSelect();
     //testSelectList();
     //testAssociation();
-    testCollection();
+    // testCollection();
+    testPage();
+  }
+
+  private static void testPage(){
+    SqlSession ss = SqlSessionUtil.openSession();
+    CountryMapper cm = ss.getMapper(CountryMapper.class);
+    Map<String,Object> params = new HashMap<>();
+    PageInfo pi = new PageInfo();
+    pi.setPageSize(3);
+    pi.setCurrentPageIndex(3);
+    params.put("pageInfo",pi);
+    params.put("population",2441000);
+    List<Country> countries = cm.queryAllCountriesByPage(params);
+    ss.close();
   }
 
   private static void testCollection() {

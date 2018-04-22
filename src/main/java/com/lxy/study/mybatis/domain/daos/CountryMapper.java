@@ -8,6 +8,7 @@ package com.lxy.study.mybatis.domain.daos;
 import com.lxy.study.mybatis.domain.models.City;
 import com.lxy.study.mybatis.domain.models.Country;
 import com.lxy.study.mybatis.util.MyParam;
+import com.lxy.study.mybatis.util.PageInfo;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
@@ -26,4 +27,6 @@ public interface CountryMapper {
   List<Country> queryAllCountries();
 
   Country queryCountryByCode(String code);
+
+  List<Country> queryAllCountriesByPage(Map<String,Object> params);
 }

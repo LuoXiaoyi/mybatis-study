@@ -40,6 +40,14 @@
     <property name="name" value="myObjectFactory"></property>
   </objectFactory>
 
+
+  <plugins>
+    <plugin interceptor="com.lxy.study.mybatis.plugin.PagePlugin">
+      <property name="dialect" value="mysql"/>
+      <property name="pageSqlId" value=".*ByPage"/>
+    </plugin>
+  </plugins>
+
   <environments default="development">
     <environment id="development">
       <!-- JDBC/MANAGED -->
@@ -72,4 +80,5 @@
     <!--mapper class="com.lxy.study.mybatis.domain.daos.CityMapper" /-->
     <!--package name="com.lxy.study.mybatis.domain.daos" /-->
   </mappers>
+
 </configuration>

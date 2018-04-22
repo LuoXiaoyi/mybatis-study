@@ -32,4 +32,8 @@
     from country
     where code = #{code}
   </select>
+
+  <select id="queryAllCountriesByPage" parameterType="java.util.Map" resultMap="countryMap">
+    select <include refid="countryColumns"/> from country where Population > #{population}
+  </select>
 </mapper>
