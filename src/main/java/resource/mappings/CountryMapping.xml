@@ -3,7 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxy.study.mybatis.domain.daos.CountryMapper">
+  <!--
+  缓存分为一级缓存和二级缓存
+  一级缓存：范围是同一个SqlSession对象中；对同一个sql执行多次时，如果缓存未超时，则直接从缓存获取数据，不会再次
+  发送sql语句到数据库去；
+  二级缓存：范围是同一个SqlSessionFactory对象中的所有SqlSession对象；对于同一个sql，如果缓存未超时，多次执行
+  时会直接从二级缓存中获取数据
 
+  开启二级缓存：1. 配置<cache/>标签 2. 将二级缓存对应的对象实现Serializable接口
+
+  注意：如果使用二级缓存，则必须使用commit方法进行提交，另外的SqlSession对象才可能从二级缓存中获取到缓存数据
+  -->
+  <cache/>
   <resultMap id="countryMap" type="com.lxy.study.mybatis.domain.models.Country">
     <constructor>
       <arg column="code" javaType="string"/>

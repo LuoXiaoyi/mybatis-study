@@ -40,7 +40,6 @@
     <property name="name" value="myObjectFactory"></property>
   </objectFactory>
 
-
   <plugins>
     <plugin interceptor="com.lxy.study.mybatis.plugin.PagePlugin">
       <property name="dialect" value="mysql"/>

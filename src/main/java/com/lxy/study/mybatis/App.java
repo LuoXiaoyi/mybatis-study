@@ -39,7 +39,30 @@ public class App {
     //testSelectList();
     //testAssociation();
     // testCollection();
-    testPage();
+    // testPage();
+    testCache();
+  }
+
+  private static void testCache() {
+
+    SqlSession ss = SqlSessionUtil.openSession();
+    CountryMapper cm = ss.getMapper(CountryMapper.class);
+
+    log.info("第一个session第一次查询");
+    cm.queryCountryByCode("AFG");
+    log.info("第一个session第二次次查询");
+    cm.queryCountryByCode("AFG");
+
+    // 如果使用二级缓存，则必须使用commit方法进行提交
+    ss.commit();
+    ss.close();
+
+    ss = SqlSessionUtil.openSession();
+    cm = ss.getMapper(CountryMapper.class);
+    log.info("第二个session第一次查询");
+    cm.queryCountryByCode("AFG");
+    ss.commit();
+    ss.close();
   }
 
   private static void testPage(){

@@ -1,6 +1,7 @@
 package com.lxy.study.mybatis.domain.models;
 
 import com.sun.org.apache.bcel.internal.classfile.Code;
+import java.io.Serializable;
 import java.util.List;
 import sun.rmi.server.InactiveGroupException;
 
@@ -10,7 +11,7 @@ import sun.rmi.server.InactiveGroupException;
  * @author Luo.xiaoyi
  * @date 2018/04/21
  */
-public class Country {
+public class Country implements Serializable {
 
   public Country(String code,String name){
     this.code = code;
