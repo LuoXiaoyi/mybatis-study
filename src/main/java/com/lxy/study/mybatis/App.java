@@ -4,6 +4,7 @@ import com.lxy.study.mybatis.domain.daos.CountryMapper;
 import com.lxy.study.mybatis.domain.models.City2;
 import com.lxy.study.mybatis.domain.models.Country;
 import com.lxy.study.mybatis.util.PageInfo;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,23 @@ public class App {
     //testAssociation();
     // testCollection();
     // testPage();
-    testCache();
+    // testCache();
+    testDynamicSQL();
+  }
+  private static void testDynamicSQL(){
+    SqlSession ss = SqlSessionUtil.openSession();
+    CountryMapper cm = ss.getMapper(CountryMapper.class);
+    /*Map<String,Object> paras = new HashMap<>();
+    //paras.put("population","10000");
+    paras.put("code","AFG");
+    paras.put("name","Afghanistan21");
+    cm.queryCountryByParas(paras);
+    cm.updateCountryByParas(paras);*/
+    List<String> codeList = new ArrayList<>();
+    codeList.add("AFG");
+    codeList.add("CHN");
+    cm.queryCountryByCodes(codeList,"F");
+    ss.commit();
   }
 
   private static void testCache() {

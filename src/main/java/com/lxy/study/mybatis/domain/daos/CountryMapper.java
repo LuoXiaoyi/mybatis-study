@@ -23,10 +23,16 @@ import org.apache.ibatis.annotations.Select;
  */
 
 public interface CountryMapper {
+  List<Country> queryCountryByCodes(@Param("codeList") List<String> codeList,
+      @Param("like") String like);
+
+  int updateCountryByParas(Map<String,Object> params);
 
   List<Country> queryAllCountries();
 
   Country queryCountryByCode(String code);
+
+  List<Country> queryCountryByParas(Map<String,Object> params);
 
   List<Country> queryAllCountriesByPage(Map<String,Object> params);
 }

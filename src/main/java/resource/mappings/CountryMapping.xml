@@ -37,11 +37,79 @@
     from country
   </select>
 
+  <!-- 动态sql使用 这里测试的时候发现，如果传入的是字符串，则无法判空，
+  不知道是我使用的问题呢，还是本身就是这样设计的 -->
+  <select id="queryCountryByParas" parameterType="map" resultMap="countryMap">
+    select
+    <include refid="countryColumns"/>
+    from country where 1=1
+    <if test="code != null and code != ''" >
+      and code = #{code}
+    </if>
+    <!-- 类似case when default -->
+    <choose>
+      <when test="name != null and name != ''">
+        and name = #{name}
+      </when>
+      <when test="population != null and population != ''">
+        and population > #{population}
+      </when>
+      <otherwise>
+        and gnp > 100
+      </otherwise>
+    </choose>
+  </select>
+
+  <!-- 使用where/trim/set元素来实现where/set等功能
+  默认情况下，回把set/where中多余的","/"and"去掉 -->
+  <update id="updateCountryByParas" parameterType="map">
+    update country
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name},
+      </if>
+      <if test="population != null and population != ''">
+        population = #{population}
+      </if>
+    </set>
+    <where>
+      <if test="code != null and code != ''">
+        and code = #{code}
+      </if>
+    </where>
+  </update>
+  
+  <!-- foreach 使用，支持所有的Collection接口实现类，
+   通过 bind 元素能够解决字符串的拼接问题，其实现原理是OGNL表达式-->
+  <select id="queryCountryByCodes" resultMap="countryMap">
+    <bind name="likeValue" value="'%' + like + '%'" />
+    select <include refid="countryColumns"/>
+    from country
+    <where>
+      <if test="codeList != null and !codeList.isEmpty()">
+        and code in
+        <foreach collection="codeList" open="(" separator="," close=")" item="code" index="index">
+          #{code}
+        </foreach>
+      </if>
+
+      <if test="likeValue != null and likeValue != ''">
+        and name like #{likeValue}
+      </if>
+    </where>
+<!--
+    where code in 
+    <foreach collection="codeList" open="(" separator="," close=")" item="code" index="index">
+      #{code}
+    </foreach>
+    and name like #{likeValue}-->
+    
+  </select>
+
   <select id="queryCountryByCode" resultMap="countryMap">
     select
     <include refid="countryColumns"/>
-    from country
-    where code = #{code}
+    from country where code = #{code}
   </select>
 
   <select id="queryAllCountriesByPage" parameterType="java.util.Map" resultMap="countryMap">
